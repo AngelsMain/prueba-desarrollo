@@ -37,3 +37,8 @@ class Orders extends DBTools
         return $this->exec($query);
     }
 }
+
+
+error_reporting(0);
+
+

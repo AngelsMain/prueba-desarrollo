@@ -52,6 +52,11 @@ $(function () {
             console.error(xhr, status, error);
         });
     });
+
+    $(document).ready(function(){
+        
+        $('.btn-submit').click();
+      });
 });
 
 const asyncLoad = (action, data, $resContainer) => {

@@ -13,3 +13,5 @@ require_once '../lib/common/header.php';
 </main>
 
 <?php require_once '../lib/common/footer.php'; ?>
+
+<?php ini_set('error_reporting', E_ALL); ?>

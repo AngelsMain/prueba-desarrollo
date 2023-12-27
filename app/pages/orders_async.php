@@ -4,10 +4,11 @@ require_once '../lib/core.lib.php';
 
 if ($GPC['type'] == 'list-orders') { 
     
-    $orders = Orders::getInstance()->getTime($GPC)
-
+    $orders = Orders::getInstance()->getOrders($GPC)
+   
 ?>
-    <form class="mb-3" class="filter-form" action="orders_async.php" data-target=".filter-results">
+
+    <form class="mb-3 filter-form" action="orders_async.php" data-target=".filter-results">
         <input type="hidden" name="type" value="filter-orders">
 
         <div class="row mb-3">
@@ -26,13 +27,13 @@ if ($GPC['type'] == 'list-orders') {
             <div class="col-6">
                 <div class="form-group">
                     <label>Salida</label>
-                    <input type="text" class="form-control" name="salida" placeholder="Buscar">
+                    <input type="date" class="form-control" name="salida" placeholder="Buscar">
                 </div>
             </div>
             <div class="col-6">
                 <div class="form-group">
                     <label>Retorno</label>
-                    <input type="text" class="form-control" name="retorno" placeholder="Buscar">
+                    <input type="date" class="form-control" name="retorno" placeholder="Buscar">
                 </div>
             </div>
             <div class="col-6">
@@ -66,9 +67,12 @@ if ($GPC['type'] == 'list-orders') {
 
 if ($GPC['type'] == 'filter-orders') {
     $arrOrders = Orders::getInstance()->getOrders($GPC);
-    $arrOrdersDemo = Orders::getInstance()->getOrdersAll($GPC)
+   
     ?>
     <table class="table table-striped table-border">
+
+    
+
         <thead>
             <tr>
                 <th>N°</th>
@@ -80,14 +84,18 @@ if ($GPC['type'] == 'filter-orders') {
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Acciones</th>
+                <th>Status</th>
             </tr>
         </thead>
 
         <tbody>
-            <?php if (empty($arrOrders)) : ?>
+            <?php if (empty($arrOrders)) : 
+             ?>
+                
                 <tr>
                     <td class="text-center" colspan="9">No hay registros</td>
                 </tr>
+
             <?php else : ?>
                 <?php foreach ($arrOrders as $order) : ?>
                     <tr>
@@ -109,6 +117,8 @@ if ($GPC['type'] == 'filter-orders') {
                                 Editar
                             </button>
                         </td>
+                        <td><?= $order['status'] ?></td>
+
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -209,3 +219,6 @@ if ($GPC['type'] == 'save-order') {
 
     die(json_encode(['status' => 'OK']));
 }
+
+
+
